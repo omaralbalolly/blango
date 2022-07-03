@@ -3,6 +3,7 @@ from django.utils import timezone
 from blog.models import Post
 from blog.forms import CommentForm
 import logging
+from django.urls import reverse
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +36,9 @@ def post_detail(request, slug):
         request, "blog/post-detail.html", {"post": post, "comment_form": comment_form}
     )
 def post_table(request):
-    return render(request, "blog/post-table.html")
+    return render(
+        request, "blog/post-table.html", {"post_list_url": reverse("post-list")}
+    )
 def get_ip(request):
   from django.http import HttpResponse
   return HttpResponse(request.META['REMOTE_ADDR'])
